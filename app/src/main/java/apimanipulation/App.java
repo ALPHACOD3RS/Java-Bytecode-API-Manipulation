@@ -5,38 +5,82 @@ package apimanipulation;
 
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 
 public class App {
-    public static void main(String[] args) throws IOException {
-        String apiUrl = "http://api.gataama.com/healthz";
-        URL url = new URL(apiUrl);
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+    public void callApi() {
+        try {
+            URL url = new URL("http://api.gataama.com/healthz");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
 
-        con.setRequestMethod("GET");
+            // Add Authorization header
+            connection.setRequestProperty("Authorization", "siuuuuu");
 
-        String bearerToken = "lalala";
-        con.setRequestProperty("Authorization", "Bearer " + bearerToken);
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                in.close();
 
-        int responseCode = con.getResponseCode();
-        System.out.println("Response Code : " + responseCode);
-
-        StringBuilder response = new StringBuilder();
-        try (BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
+                // Print result
+                System.out.println("Response from server:");
+                System.out.println(response.toString());
+            } else {
+                System.out.println("GET request failed. Response code: " + responseCode);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+    }
 
-        System.out.println("respons : " + response.toString());
+    public static void main(String[] args) {
+        App app = new App();
+        app.callApi();
     }
 }
+
+
+//import java.io.BufferedReader;
+//import java.io.IOException;
+//import java.io.InputStreamReader;
+//import java.net.HttpURLConnection;
+//import java.net.URI;
+//import java.net.URISyntaxException;
+//import java.net.URL;
+//import java.net.http.HttpClient;
+//import java.net.http.HttpRequest;
+//import java.net.http.HttpResponse;
+//
+//public class App {
+//    public static void main(String[] args) throws IOException {
+//        String apiUrl = "http://api.gataama.com/healthz";
+//        URL url = new URL(apiUrl);
+//        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+//
+//        con.setRequestMethod("GET");
+//
+//
+//        String bearerToken = "lalala";
+//        con.setRequestProperty("Authorization", "Bearer " + bearerToken);
+//
+//        int responseCode = con.getResponseCode();
+//        System.out.println("Response Code : " + responseCode);
+//
+//        StringBuilder response = new StringBuilder();
+//        try (BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
+//            String inputLine;
+//            while ((inputLine = in.readLine()) != null) {
+//                response.append(inputLine);
+//            }
+//        }
+//
+//        System.out.println("respons : " + response.toString());
+//    }
+//}
