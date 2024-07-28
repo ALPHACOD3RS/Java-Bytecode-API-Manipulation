@@ -56,7 +56,7 @@ public class AddAuthorizationHeaderOkhttp {
         public void visitMethodInsn(int opcode, String owner, String name, String descriptor, boolean isInterface) {
             super.visitMethodInsn(opcode, owner, name, descriptor, isInterface);
 
-            if (isRequestBuilder && opcode == Opcodes.INVOKEVIRTUAL && owner.equals("okhttp3/Request$Builder") && name.equals("build")) {
+            if (isRequestBuilder && opcode == Opcodes.INVOKEVIRTUAL && owner.equals("okhttp3/Request$Builder") && name.equals("url")) {
                 isRequestBuilder = false;
 
                 // Inject code before build() call to add additional authorization header

@@ -12,7 +12,7 @@ import java.net.URL;
 public class App {
     public void callApi() {
         try {
-            URL url = new URL("http://api.gataama.com/healthz");
+            URL url = new URL("https://api.gataama.com/healthz");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
 

@@ -9,6 +9,7 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.1.0'
 }
 
 repositories {
@@ -24,6 +25,9 @@ dependencies {
     // implementation 'com.google.guava:guava:31.1-jre'
     implementation 'org.ow2.asm:asm:9.2'
     implementation 'org.ow2.asm:asm-commons:9.2'
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+    implementation 'com.android.volley:volley:1.2.1'
+
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -35,7 +39,7 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = 'apimanipulation.App'
+    mainClass = 'apimanipulation.ApiClient'
 }
 
 // tasks.named('test') {
